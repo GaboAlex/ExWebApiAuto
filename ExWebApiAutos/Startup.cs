@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExWebApiAutos.Model;
+using ExWebApiAutos.Model.Repositories;
+using ExWebApiAutos.Model.VehiculoDb;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ExWebApiAutos
 {
@@ -25,6 +31,24 @@ namespace ExWebApiAutos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<VehiculoDbContext>(options => 
+                options.UseSqlServer(
+                    Configuration["Data:Vehiculo:ConnectionString"]));
+
+            services.AddDbContext<AppIdentityDbContext>(options => 
+                options.UseSqlServer(
+                    Configuration["Data:VehiculoIdentity:ConnectionString"]));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<IProyectoRepository, EFProyectoRepository>();
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "ExWebApi", Version = "v1" });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -35,13 +59,14 @@ namespace ExWebApiAutos
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
             {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+            app.UseAuthentication();
             app.UseMvc();
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
