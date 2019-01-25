@@ -11506,11 +11506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAutos\\ExWebApiAutos\\ExWebApiAutos.csproj",
+      "projectUniqueName": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAuto\\ExWebApiAutos\\ExWebApiAutos.csproj",
       "projectName": "ExWebApiAutos",
-      "projectPath": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAutos\\ExWebApiAutos\\ExWebApiAutos.csproj",
+      "projectPath": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAuto\\ExWebApiAutos\\ExWebApiAutos.csproj",
       "packagesPath": "C:\\Users\\Tecsup\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAutos\\ExWebApiAutos\\obj\\",
+      "outputPath": "C:\\Users\\Tecsup\\source\\repos\\ExWebApiAuto\\ExWebApiAutos\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
