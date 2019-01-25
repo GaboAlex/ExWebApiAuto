@@ -39,10 +39,10 @@ namespace ExWebApiAutos.Controllers
         }
         // PUT api/<controller>/5
         [HttpPut("{ProyectoId}")]
-        public IActionResult Put(Guid MarcaId, [FromBody]TMarca marca)
+        public async Task<IActionResult> Put(Guid MarcaId, [FromBody]TMarca marca)
         {
             marca.MarcaId = MarcaId;
-            repositorio.SaveProject(marca);
+            await repositorio.SaveProject(marca);
             return Ok(true);
         }
         // DELETE api/<controller>/5
